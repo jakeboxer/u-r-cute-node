@@ -15,7 +15,7 @@ var FLOWER = "\
          _\\\\```\n\
             \\\\";
 
-var TWEET_REGEX = /^@u_r_cute send flowers to @([A-Za-z0-9_]{1,15})$/i
+var TWEET_REGEX = /^@u_r_cute send flowers to @([A-Za-z0-9_]{1,15})/i
 
 // jshint multistr: true
 console.log("\
