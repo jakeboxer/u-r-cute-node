@@ -1,8 +1,8 @@
 var dotenv = require('dotenv')();
 dotenv.load();
 
-var _ = require('underscore'),
-  ntwitter = require("ntwitter");
+var _ = require('underscore');
+var ntwitter = require("ntwitter");
 
 // jshint multistr: true
 var FLOWER = "\
