@@ -6,5 +6,6 @@ hay gurl
 
 ``` bash
 npm install ntwitter
+npm install underscore
 npm install dotenv
 ```
