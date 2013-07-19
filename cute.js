@@ -38,17 +38,23 @@ var twitter = new ntwitter({
 
 var tweetIDsReplyingTo = [];
 var tweetIDsRepliedTo = [358353187587100700];
+var respondingToMentions = false;
 
 function checkDone() {
   if (tweetIDsReplyingTo.length < 1) {
-    console.log("DONE!!!\n");
-    setTimeout(respondToMentions, 90000); // Check once every 1.5 minutes
+    if (respondingToMentions) {
+      respondingToMentions = false;
+      console.log("DONE!!!\n");
+      setTimeout(respondToMentions, 90000); // Check once every 1.5 minutes
+    }
   } else {
     console.log("Still have tweets to reply to\n");
   }
 }
 
 function respondToMentions() {
+  respondingToMentions = true;
+
   // Get the mentions timeline
   twitter.get("https://api.twitter.com/1.1/statuses/mentions_timeline.json", {}, function (err, data) {
     if (err !== null) {
@@ -89,7 +95,7 @@ function respondToMentions() {
 
           console.log("Replying with:\n---\n" + text + "\n");
 
-          twitter.updateStatus(text, function (err, data) {
+          twitter.updateStatus(text, {in_reply_to_status_id: tweetId}, function (err, data) {
             // Now we've replied to the tweet, so record it
             tweetIDsReplyingTo.splice(tweetIDsReplyingTo.indexOf(tweetId), 1);
             tweetIDsRepliedTo.push(tweetId);
