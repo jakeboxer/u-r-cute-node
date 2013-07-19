@@ -71,10 +71,9 @@ function respondToMentions() {
       } else {
         // We haven't replied to this tweet yet, so reply to it if it matches
         // the regex.
-        console.log("Haven't replied to tweet " + tweetId + " yet. Replying now if regex matched...");
+        console.log("Haven't replied to tweet " + tweetId + " yet.");
 
-        var text = tweet.text;
-        var matches = text.match(TWEET_REGEX);
+        var matches = tweet.text.match(TWEET_REGEX);
 
         if (matches === null) {
           console.log("Regex not matched. Ignoring.");
@@ -82,21 +81,19 @@ function respondToMentions() {
         } else {
           var toUsername = matches[1];
           var fromUsername = tweet.user.screen_name;
+          var text = "@" + toUsername + "\n\n" + FLOWER + "\n\nFrom: @" + fromUsername;
 
           tweetIDsReplyingTo.push(tweetId);
 
-          setTimeout(function () {
-            var tweet = "@" + toUsername + "\n\n" + FLOWER + "\n\nFrom: @" + fromUsername;
-            console.log("Reply to " + tweetId + ": \n---\n" + tweet);
+          console.log("Replying with:\n---\n" + text);
 
-            twitter.updateStatus(tweet, function (err, data) {
-              // Now we've replied to the tweet, so record it
-              tweetIDsReplyingTo.splice(tweetIDsReplyingTo.indexOf(tweetId), 1);
-              tweetIDsRepliedTo.push(tweetId);
+          twitter.updateStatus(text, function (err, data) {
+            // Now we've replied to the tweet, so record it
+            tweetIDsReplyingTo.splice(tweetIDsReplyingTo.indexOf(tweetId), 1);
+            tweetIDsRepliedTo.push(tweetId);
 
-              checkDone();
-            });
-          }, 2000);
+            checkDone();
+          });
         }
       }
     });
