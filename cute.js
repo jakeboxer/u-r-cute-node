@@ -37,7 +37,7 @@ var twitter = new ntwitter({
 });
 
 var tweetIDsReplyingTo = [];
-var tweetIDsRepliedTo = [];
+var tweetIDsRepliedTo = [358353187587100700];
 
 function checkDone() {
   if (tweetIDsReplyingTo.length < 1) {
