@@ -41,10 +41,10 @@ var tweetIDsRepliedTo = [];
 
 function checkDone() {
   if (tweetIDsReplyingTo.length < 1) {
-    console.log("DONE!!!");
+    console.log("DONE!!!\n");
     setTimeout(respondToMentions, 90000); // Check once every 1.5 minutes
   } else {
-    console.log("Still have tweets to reply to");
+    console.log("Still have tweets to reply to\n");
   }
 }
 
@@ -58,6 +58,8 @@ function respondToMentions() {
       checkDone();
       return null;
     }
+
+    console.log("Mentions timeline loaded at " + (new Date()) + ". Processing...\n---\n")
 
     // Loop over each tweet mention
     data.forEach(function (tweet) {
@@ -76,7 +78,7 @@ function respondToMentions() {
         var matches = tweet.text.match(TWEET_REGEX);
 
         if (matches === null) {
-          console.log("Regex not matched. Ignoring.");
+          console.log("Regex not matched. Ignoring.\n");
           checkDone();
         } else {
           var toUsername = matches[1];
@@ -85,7 +87,7 @@ function respondToMentions() {
 
           tweetIDsReplyingTo.push(tweetId);
 
-          console.log("Replying with:\n---\n" + text);
+          console.log("Replying with:\n---\n" + text + "\n");
 
           twitter.updateStatus(text, function (err, data) {
             // Now we've replied to the tweet, so record it
