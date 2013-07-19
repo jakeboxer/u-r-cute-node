@@ -17,10 +17,17 @@ var FLOWER = "\
 
 var TWEET_REGEX = /^@u_r_cute send flowers to @([A-Za-z0-9_]{1,15})$/i
 
-console.log("consumer_key:        " + process.env.U_R_CUTE_TWITTER_CONSUMER_KEY);
-console.log("consumer_secret:     " + process.env.U_R_CUTE_TWITTER_CONSUMER_SECRET);
-console.log("access_token_key:    " + process.env.U_R_CUTE_TWITTER_OAUTH_TOKEN);
-console.log("access_token_secret: " + process.env.U_R_CUTE_TWITTER_OAUTH_TOKEN_SECRET);
+// jshint multistr: true
+console.log("\
+###############\n\
+# Credentials #\n\
+###############\n\
+\n\
+consumer_key:        " + process.env.U_R_CUTE_TWITTER_CONSUMER_KEY + "\n\
+consumer_secret:     " + process.env.U_R_CUTE_TWITTER_CONSUMER_SECRET + "\n\
+access_token_key:    " + process.env.U_R_CUTE_TWITTER_OAUTH_TOKEN + "\n\
+access_token_secret: " + process.env.U_R_CUTE_TWITTER_OAUTH_TOKEN_SECRET + "\n\
+\n");
 
 var twitter = new ntwitter({
   consumer_key: process.env.U_R_CUTE_TWITTER_CONSUMER_KEY,
