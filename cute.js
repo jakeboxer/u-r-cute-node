@@ -35,7 +35,7 @@ var tweetIDsRepliedTo = [];
 function checkDone() {
   if (tweetIDsReplyingTo.length < 1) {
     console.log("DONE!!!");
-    setTimeout(respondToMentions, 10000);
+    setTimeout(respondToMentions, 90000); // Check once every 1.5 minutes
   } else {
     console.log("Still have tweets to reply to");
   }
