@@ -1,7 +1,7 @@
-var dotenv = require('dotenv')();
+var dotenv = require("dotenv")();
 dotenv.load();
 
-var _ = require('underscore');
+var _ = require("underscore");
 var ntwitter = require("ntwitter");
 
 // jshint multistr: true
