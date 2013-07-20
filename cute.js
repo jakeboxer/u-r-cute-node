@@ -1,3 +1,4 @@
+var startedAt = new Date();
 var dotenv = require("dotenv")();
 dotenv.load();
 
@@ -37,7 +38,7 @@ var twitter = new ntwitter({
 });
 
 var tweetIDsReplyingTo = [];
-var tweetIDsRepliedTo = [358353187587100700];
+var tweetIDsRepliedTo = [];
 var respondingToMentions = false;
 
 function checkDone() {
@@ -70,11 +71,15 @@ function respondToMentions() {
     // Loop over each tweet mention
     data.forEach(function (tweet) {
       var tweetId = tweet.id;
+      var tweetedAt = new Date(tweet.created_at);
 
-      console.log("Tweet " + tweetId + " from @" + tweet.user.screen_name + ": " + tweet.text);
+      console.log("Tweet " + tweetId + " at " + tweetedAt + " from @" + tweet.user.screen_name + ": " + tweet.text);
 
-      if (_.contains(tweetIDsRepliedTo, tweetId)) {
-        console.log("Already replied to tweet " + tweetId);
+      if (tweetedAt < startedAt) {
+        console.log("Tweet " + tweetId + " came before Node started.");
+        checkDone();
+      } else if (_.contains(tweetIDsRepliedTo, tweetId)) {
+        console.log("Already replied to tweet " + tweetId + ".");
         checkDone();
       } else {
         // We haven't replied to this tweet yet, so reply to it if it matches
